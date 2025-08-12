@@ -1,8 +1,6 @@
-// eslint.config.js
 import js from "@eslint/js";
 import globals from "globals";
 import pluginReact from "eslint-plugin-react";
-import vitest from "eslint-plugin-vitest";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
@@ -12,17 +10,10 @@ export default defineConfig([
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.es2021,
+        vi: "readonly", // <-- mark vi as a global to avoid no-undef
       },
     },
-    plugins: {
-      js,
-      react: pluginReact,
-      vitest,
-    },
-    extends: ["plugin:react/recommended", "plugin:vitest/recommended"],
-    rules: {
-      "react/react-in-jsx-scope": "off",
-    },
+    plugins: { js, react: pluginReact },
+    extends: ["plugin:react/recommended", "js/recommended"],
   },
 ]);
